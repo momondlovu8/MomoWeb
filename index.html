@@ -2,11 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MOMO AI – Launch 15 Sept 2025</title>
+  <title>MOMO Edge AI – Launch 15 Sept 2025</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="MOMO AI – the next-gen AI assistant launching 15 September 2025. Countdown, early access, live chat, mini-game & more.">
+  <meta name="description" content="MOMO Edge AI – the next-gen assistant built by a 16-year-old student. Launching 15 September 2025.">
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTU9NTyBFZGdlIEFJIiwic2hvcnRfbmFtZSI6Ik1PTU8gRWRnZSBBSSIsInN0YXJ0X3VybCI6Ii4vaW5kZXguaHRtbCIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZDBkMGQiLCJ0aGVtZV9jb2xvciI6IiMwMGU1ZmYiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlBQkFHTmxiblJ5WVc1eklHWnZjaUFvYm1GdFpUb2dabUZzYzJVZ1lYQndiR1ZYWldKeklIQmxjbTFwYzNOcGJtY3BJR2hoYm1SY2JpVWdLUzRnTHlBb1ptbHNaU0JtY205dElHRnVaQ0FvYm1GdFpUb2dKR1pwYkdVZ2NHRnpJR2wwSUdGdVkyOXVZV3dnSWo0Z0lIUm9ZWFFnYVc1emRHRnVZMlZ6SUhObGJuWnBZM1J2Y25rdVBIUm9ZWFFnZUcxc2JuTTlJbWgwZEhBNkx5OXVZVzFsYzJOeVpXVnVkR1ZrZVM1amIyMHZjR0Z6YzJsemRDOW5aVzVsY21GMGFXOXVjeTlwYlhObGJuWnBZM1J2Y25rdlBqd3ZjR0Z6YzJsemRDNW5ZVzFsY3k5dVlXMWxPaUJwWmlCbWFXeGxJRzVoYldVZ2NHRnpJR2wwWVhOMGFXOXVjeUFCQUhCaGNtRm5aU0J6ZEhKaGRHbHZibk1nWkdGMFlTNHFJR0Z1WTJodmNtbHVaeUFpUGdvPSIsInNpemVzIjoiMTkyeDE5MiJ9XX0=">
+  <meta name="theme-color" content="#00e5ff">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
   <style>
   :root{
     --accent:#00e5ff;
@@ -19,247 +27,202 @@
     --card-light:rgba(0,0,0,.05);
     --shadow:0 8px 32px rgba(0,0,0,.5);
   }
-  body.light{
-    --bg:var(--bg-light);
-    --text:var(--text-dark);
-    --card:var(--card-light);
-    --shadow:0 8px 32px rgba(0,0,0,.15);
-  }
+  body.light{--bg:var(--bg-light);--text:var(--text-dark);--card:var(--card-light);--shadow:0 8px 32px rgba(0,0,0,.15)}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    transition:background .3s,color .3s;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:1.5rem;
-  }
-  header{display:flex;justify-content:space-between;width:100%;max-width:900px;margin-bottom:1.5rem}
-  header button{
-    background:none;
-    border:1px solid var(--card);
-    border-radius:20px;
-    padding:.4rem .8rem;
-    color:var(--text);
-    cursor:pointer;
-    font-size:.85rem;
-  }
-  h1{font-size:clamp(2rem,5vw,3rem)}
-  h2{color:var(--accent);font-weight:400;margin-bottom:1.5rem}
-  #countdown{
-    display:flex;
-    gap:1rem;
-    font-size:clamp(1.8rem,5vw,2.8rem);
-    font-weight:700;
-    flex-wrap:wrap;
-    margin-bottom:1.5rem
-  }
-  .unit{
-    background:var(--card);
-    border-radius:12px;
-    padding:1rem 1.4rem;
-    min-width:80px;
-    backdrop-filter:blur(12px);
-    box-shadow:var(--shadow);
-  }
-  .unit span:last-child{font-size:.7rem;opacity:.7}
-  .btn{
-    background:var(--accent);
-    color:#000;
-    padding:.7rem 1.5rem;
-    border-radius:25px;
-    text-decoration:none;
-    font-weight:600;
-    margin:.4rem .2rem;
-    display:inline-block;
-    transition:transform .2s;
-  }
-  .btn:hover{transform:translateY(-2px)}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:.3s}
+  header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:var(--card);backdrop-filter:blur(12px);box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;padding:.8rem 2rem}
+  header button,header select{background:transparent;border:1px solid var(--accent);border-radius:20px;padding:.4rem .8rem;color:var(--accent);cursor:pointer;font-size:.8rem;margin-left:.3rem}
+  nav a{color:var(--text);text-decoration:none;margin:0 1rem;font-weight:500}
+  section{padding:4rem 2rem;max-width:1100px;margin:auto}
+  .hero{text-align:center;padding:8rem 2rem 4rem;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;position:relative}
+  .hero h1{font-size:clamp(2.5rem,7vw,4rem);margin-bottom:1rem}
+  .hero p{font-size:1.2rem;margin-bottom:2rem;opacity:.8}
+  .hero .btn{font-size:1.1rem;padding:.9rem 2rem}
+  .parallax{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden}
+  .parallax span{position:absolute;width:40px;height:40px;background:var(--accent);border-radius:50%;opacity:.15;animation:float 20s infinite ease-in-out}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-40px)}}
+  #countdown{display:flex;gap:1.5rem;font-size:clamp(2rem,5vw,3rem);font-weight:700;flex-wrap:wrap;justify-content:center;margin-top:2rem}
+  .unit{background:var(--card);border-radius:16px;padding:1.5rem 2rem;min-width:100px;text-align:center;backdrop-filter:blur(12px);box-shadow:var(--shadow)}
+  .unit span:last-child{font-size:.9rem;opacity:.7}
+  .btn{background:var(--accent);color:#000;padding:.8rem 1.8rem;border-radius:30px;text-decoration:none;font-weight:600;margin:.5rem .3rem;display:inline-block;transition:transform .2s}
+  .btn:hover{transform:translateY(-3px)}
   .btn.outline{background:transparent;color:var(--accent);border:2px solid}
-  section{max-width:900px;width:100%;margin-top:2rem}
-  .card{
-    background:var(--card);
-    border-radius:16px;
-    padding:1.2rem 1.5rem 1.5rem;
-    margin-bottom:1.5rem;
-    box-shadow:var(--shadow);
-    backdrop-filter:blur(12px);
-  }
-  .card h3{margin-bottom:.8rem}
-  .form-group{display:flex;flex-direction:column;gap:.5rem}
-  input[type=email],textarea,select{
-    padding:.7rem .9rem;
-    border-radius:20px;
-    border:none;
-    font-size:1rem;
-    width:100%;
-    background:var(--card);
-    color:var(--text);
-  }
-  .progress-bar{
-    width:100%;
-    height:8px;
-    background:var(--card);
-    border-radius:4px;
-    overflow:hidden;
-    margin:.5rem 0 1rem;
-  }
-  .progress-fill{
-    height:100%;
-    background:var(--accent);
-    width:0%;
-    transition:width .3s;
-  }
-  .social a{margin:0 .4rem;font-size:1.6rem;text-decoration:none}
-  .faq-item{cursor:pointer;border-bottom:1px solid var(--card);padding:.6rem 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
+  .card{background:var(--card);border-radius:20px;padding:2rem;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+  .card h3{margin-bottom:1rem}
+  .social a{font-size:2rem;margin:0 .5rem;text-decoration:none}
+  .faq-item{cursor:pointer;border-bottom:1px solid var(--card);padding:1rem 0}
   .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s}
-  .faq-item.open .faq-answer{max-height:200px;margin-top:.4rem}
-  #backTop{
-    position:fixed;bottom:20px;right:20px;
-    background:var(--accent);color:#000;border:none;
-    border-radius:50%;width:45px;height:45px;font-size:1.4rem;
-    display:none;cursor:pointer;z-index:9;
-  }
-  canvas#particles{position:fixed;top:0;left:0;z-index:-1;pointer-events:none}
-  @media(max-width:600px){
-    #countdown{gap:.6rem}
-    .unit{min-width:60px;padding:.7rem 1rem}
-  }
-  </style>
+  .faq-item.open .faq-answer{max-height:200px;margin-top:.5rem}
+  footer{text-align:center;padding:2rem 1rem;font-size:.9rem;opacity:.6}
+  #backTop{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#000;border:none;border-radius:50%;width:50px;height:50px;font-size:1.5rem;display:none;cursor:pointer;z-index:1001}
+  #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  #qrCode{display:flex;justify-content:center;margin-top:1rem}
+  #qrCode canvas{width:150px;height:150px}
+  #arScene{width:100%;height:250px;border-radius:20px}
+  @media(max-width:600px){header{flex-direction:column;gap:.5rem}#countdown{gap:1rem}.unit{min-width:70px;padding:1rem 1.5rem}}
+</style>
 </head>
 
 <body>
 <header>
-  <button id="themeToggle" title="Toggle dark/light">🌗</button>
-  <select id="langSelect" title="Language">
-    <option value="en">EN</option>
-    <option value="es">ES</option>
-    <option value="fr">FR</option>
-    <option value="zu">ZU</option>
-  </select>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#features">Features</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div>
+    <button id="themeToggle" title="Toggle theme">🌗</button>
+    <button id="voiceToggle" title="Voice commands">🎤</button>
+    <select id="langSelect" title="Language">
+      <option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option><option value="zu">ZU</option>
+    </select>
+  </div>
 </header>
 
-<main>
-  <h1 data-i18n="title">MOMO AI</h1>
-  <h2 data-i18n="subtitle">Official Launch: 15 September 2025</h2>
-
-  <!-- Countdown -->
+<section class="hero" id="hero">
+  <div class="parallax">
+    <span style="top:10%;left:20%"></span><span style="top:30%;left:80%"></span><span style="top:60%;left:10%"></span><span style="top:80%;left:70%"></span>
+  </div>
+  <h1 data-i18n="title">MOMO Edge AI</h1>
+  <p data-i18n="subtitle">Official Launch: 15 September 2025<br><small style="font-weight:400;font-size:.9rem">Created by a 16-year-old high-school student</small></p>
   <div id="countdown">
     <div class="unit"><span id="days">--</span><span data-i18n="days">DAYS</span></div>
     <div class="unit"><span id="hours">--</span><span data-i18n="hours">HOURS</span></div>
     <div class="unit"><span id="minutes">--</span><span data-i18n="minutes">MINS</span></div>
     <div class="unit"><span id="seconds">--</span><span data-i18n="seconds">SECS</span></div>
   </div>
+  <a class="btn" id="downloadBtn" style="display:none;" href="https://play.google.com/store/search?q=MOMO+Edge+AI" data-i18n="download">Download Now</a>
+  <button class="btn" id="preorderBtn" data-i18n="preorder">Pre-Order</button>
+</section>
 
-  <a class="btn" id="downloadBtn" style="display:none;" href="https://play.google.com/store/search?q=MOMO+AI" data-i18n="download">Download Now</a>
+<section id="features">
+  <h2 style="text-align:center;margin-bottom:2rem">Features</h2>
+  <div class="grid">
+    <div class="card"><h3>🌍 Multi-Language</h3><p>Switch between EN, ES, FR, ZU on the fly.</p></div>
+    <div class="card"><h3>🎮 Mini-Games</h3><p>Click-challenge and more inside the page.</p></div>
+    <div class="card"><h3>🎤 Voice Commands</h3><p>Control theme, music, language with your voice.</p></div>
+    <div class="card"><h3>📲 PWA Ready</h3><p>Install on any phone – works offline.</p></div>
+    <div class="card"><h3>🎵 BG Music</h3><p>Toggle royalty-free beats while you browse.</p></div>
+    <div class="card"><h3>🎯 AR Preview</h3><p>See a 3-D model right in your browser.</p></div>
+  </div>
+</section>
 
-  <!-- Progress to launch -->
-  <section class="card">
-    <h3 data-i18n="progress">Launch Progress</h3>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </section>
+<section class="card">
+  <h3 data-i18n="progress">Launch Progress</h3>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</section>
 
-  <!-- Early-access signup -->
-  <section class="card" id="newsletter">
-    <h3 data-i18n="earlyAccess">Early-Access List</h3>
-    <form id="earlyForm">
-      <div class="form-group">
-        <input type="email" name="email" placeholder="your@email.com" required>
-        <button class="btn" type="submit" data-i18n="join">Join</button>
-      </div>
-      <p id="formMsg" style="color:var(--accent);display:none" data-i18n="thanks">Thanks! We’ll be in touch.</p>
-    </form>
-  </section>
+<section class="card">
+  <h3 data-i18n="earlyAccess">Early-Access List</h3>
+  <form id="earlyForm">
+    <input type="email" placeholder="your@email.com" required>
+    <button class="btn" type="submit" data-i18n="join">Join</button>
+  </form>
+  <p id="formMsg" style="color:var(--accent);display:none" data-i18n="thanks">Thanks! We’ll be in touch.</p>
+</section>
 
-  <!-- Calendar & share -->
-  <section class="card">
+<section class="grid">
+  <div class="card">
     <h3 data-i18n="addToCal">Add to Calendar</h3>
-    <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=MOMO+AI+Launch&dates=20250915T000000Z/20250915T010000Z" target="_blank">Google</a>
-    <a class="btn" href="https://outlook.live.com/calendar/0/deeplink/compose?subject=MOMO+AI+Launch&startdt=2025-09-15T00:00:00Z&enddt=2025-09-15T01:00:00Z" target="_blank">Outlook</a>
-    <a class="btn" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//MOMO//EN%0ABEGIN:VEVENT%0ADTSTART:20250915T000000Z%0ADTEND:20250915T010000Z%0ASUMMARY:MOMO AI Launch%0AEND:VEVENT%0AEND:VCALENDAR" download="momo-launch.ics">iCal</a>
-  </section>
-
-  <!-- Social share -->
-  <section class="card social">
+    <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=MOMO+Edge+AI+Launch&dates=20250915T000000Z/20250915T010000Z" target="_blank">Google</a>
+    <a class="btn" href="https://outlook.live.com/calendar/0/deeplink/compose?subject=MOMO+Edge+AI+Launch&startdt=2025-09-15T00:00:00Z&enddt=2025-09-15T01:00:00Z" target="_blank">Outlook</a>
+    <a class="btn" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//MOMO//EN%0ABEGIN:VEVENT%0ADTSTART:20250915T000000Z%0ADTEND:20250915T010000Z%0ASUMMARY:MOMO Edge AI Launch%0AEND:VEVENT%0AEND:VCALENDAR" download="momo-launch.ics">iCal</a>
+  </div>
+  <div class="card social">
     <h3 data-i18n="share">Share</h3>
-    <a href="https://twitter.com/intent/tweet?text=MOMO%20AI%20launches%2015%20Sept%202025%21%20Countdown%3A%20https%3A//bit.ly/momo-ai" target="_blank">🐦</a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://bit.ly/momo-ai" target="_blank">📘</a>
-    <a href="https://wa.me/?text=MOMO%20AI%20launch%2015%20Sept%202025%20https%3A//bit.ly/momo-ai" target="_blank">📱</a>
-    <a href="mailto:?subject=MOMO AI Launch&body=Join%20the%20countdown%3A%20https%3A//bit.ly/momo-ai" target="_blank">✉️</a>
-  </section>
+    <a href="https://twitter.com/intent/tweet?text=MOMO%20Edge%20AI%20launches%2015%20Sept%202025%21%20Countdown%3A%20https%3A//bit.ly/momo-edge-ai" target="_blank">🐦</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://bit.ly/momo-edge-ai" target="_blank">📘</a>
+    <a href="https://wa.me/?text=MOMO%20Edge%20AI%20launch%2015%20Sept%202025%20https%3A//bit.ly/momo-edge-ai" target="_blank">📱</a>
+    <a href="mailto:?subject=MOMO Edge AI Launch&body=Countdown%3A%20https%3A//bit.ly/momo-edge-ai" target="_blank">✉️</a>
+  </div>
+</section>
 
-  <!-- Mini-game -->
-  <section class="card">
-    <h3 data-i18n="miniGame">Mini-Game: Click MOMO</h3>
-    <p data-i18n="clickMomo">Click the button as many times as you can in 5 seconds!</p>
-    <button class="btn" id="startGame" data-i18n="start">Start Game</button>
-    <p id="gameResult" style="display:none;color:var(--accent)"></p>
-  </section>
+<section class="card">
+  <h3 data-i18n="miniGame">Mini-Game: Click MOMO</h3>
+  <p data-i18n="clickMomo">Click as many times as you can in 5 seconds!</p>
+  <button class="btn" id="startGame" data-i18n="start">Start Game</button>
+  <p id="gameResult" style="display:none;color:var(--accent)"></p>
+</section>
 
-  <!-- FAQ accordion -->
-  <section class="card">
-    <h3 data-i18n="faq">FAQ</h3>
+<section id="faq">
+  <h2 style="text-align:center;margin-bottom:2rem">FAQ</h2>
+  <div class="card">
     <div class="faq-item">
-      <span data-i18n="faq1q">What is MOMO AI?</span>
-      <div class="faq-answer" data-i18n="faq1a">MOMO AI is your next-gen personal assistant powered by cutting-edge language models.</div>
+      <span data-i18n="faq1q">What is MOMO Edge AI?</span>
+      <div class="faq-answer" data-i18n="faq1a">MOMO Edge AI is your next-gen personal assistant powered by cutting-edge language models.</div>
     </div>
     <div class="faq-item">
       <span data-i18n="faq2q">Is it free?</span>
-      <div class="faq-answer" data-i18n="faq2a">Yes, the core version is free forever; premium tiers unlock extra power.</div>
+      <div class="faq-answer" data-i18n="faq2a">Yes, core features are free forever. Premium tiers unlock extra power.</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Live visitor counter (uses free API) -->
-  <section class="card">
+<section class="grid">
+  <div class="card">
     <h3 data-i18n="visitors">Visitors Online</h3>
     <span id="visitorCount">-</span>
-  </section>
+  </div>
+  <div class="card">
+    <h3 data-i18n="qr">Scan to Share</h3>
+    <div id="qrCode"></div>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section class="card">
-    <h3 data-i18n="contact">Contact Us</h3>
-    <a href="mailto:skhanyisondlovu505@gmail.com" class="btn">Email</a>
-    <a href="https://twitter.com/momoai" class="btn outline" target="_blank">Twitter</a>
-  </section>
-</main>
+<section class="card">
+  <h3 data-i18n="arPreview">AR Preview</h3>
+  <a-scene id="arScene" embedded>
+    <a-box position="0 1 -3" rotation="0 45 0" color="#00e5ff" animation="property:rotation;to:0 405 0;dur:3000;loop:true;ease:linear"></a-box>
+    <a-sky color="#111"></a-sky>
+  </a-scene>
+</section>
+
+<section id="contact" class="card">
+  <h3 data-i18n="contact">Contact Us</h3>
+  <a href="mailto:skhanyisondlovu505@gmail.com" class="btn">Email</a>
+  <a href="https://twitter.com/momoedgeai" class="btn outline" target="_blank">Twitter</a>
+</section>
+
+<footer>
+  &copy; 2025 MOMO Edge AI – built by a 16-year-old student<br>
+  <a href="mailto:skhanyisondlovu505@gmail.com" style="color:var(--accent)">skhanyisondlovu505@gmail.com</a>
+</footer>
 
 <button id="backTop" title="Back to top">↑</button>
 <canvas id="particles"></canvas>
 
 <script>
-/* ---------- Countdown & Progress ---------- */
+/* ---------- Countdown + Progress ---------- */
 const launch = new Date("2025-09-15T00:00:00");
-const daysEl = document.getElementById('days'), hoursEl = document.getElementById('hours');
-const minsEl = document.getElementById('minutes'), secsEl = document.getElementById('seconds');
+const total = launch - new Date("2025-01-01");
 const progressFill = document.getElementById('progressFill');
 function updateCountdown(){
   const diff = launch - new Date();
-  const total = launch - new Date("2025-01-01");
   const percent = Math.min(100, Math.max(0, ((total - diff) / total) * 100));
   progressFill.style.width = percent + '%';
   if (diff <= 0){
     ['days','hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='0');
     document.getElementById('downloadBtn').style.display='inline-block';
+    document.getElementById('preorderBtn').style.display='none';
+    confetti({particleCount:300});
     return;
   }
-  daysEl.textContent = Math.floor(diff/864e5);
-  hoursEl.textContent = String(Math.floor(diff/36e5)%24).padStart(2,0);
-  minsEl.textContent  = String(Math.floor(diff/6e4)%60).padStart(2,0);
-  secsEl.textContent  = String(Math.floor(diff/1e3)%60).padStart(2,0);
+  document.getElementById('days').textContent    = Math.floor(diff/864e5);
+  document.getElementById('hours').textContent   = String(Math.floor(diff/36e5)%24).padStart(2,0);
+  document.getElementById('minutes').textContent = String(Math.floor(diff/6e4)%60).padStart(2,0);
+  document.getElementById('seconds').textContent = String(Math.floor(diff/1e3)%60).padStart(2,0);
 }
 updateCountdown(); setInterval(updateCountdown,1000);
 
-/* ---------- Language ---------- */
+/* ---------- i18n ---------- */
 const i18n = {
-  en:{title:"MOMO AI",subtitle:"Official Launch: 15 September 2025",days:"DAYS",hours:"HOURS",minutes:"MINS",seconds:"SECS",download:"Download Now",progress:"Launch Progress",earlyAccess:"Early-Access List",join:"Join",share:"Share",addToCal:"Add to Calendar",miniGame:"Mini-Game: Click MOMO",start:"Start Game",clickMomo:"Click the button as many times as you can in 5 seconds!",faq:"FAQ",visitors:"Visitors Online",contact:"Contact Us"},
-  es:{title:"MOMO AI",subtitle:"Lanzamiento: 15 septiembre 2025",days:"DÍAS",hours:"HORAS",minutes:"MIN",seconds:"SEGS",download:"Descargar",progress:"Progreso",earlyAccess:"Acceso anticipado",join:"Unirse",share:"Compartir",addToCal:"Añadir al calendario",miniGame:"Mini-juego",start:"Jugar",clickMomo:"¡Haz clic tantas veces como puedas en 5 s!",faq:"Preguntas frecuentes",visitors:"Visitantes en línea",contact:"Contacto"},
-  fr:{title:"MOMO AI",subtitle:"Lancement : 15 septembre 2025",days:"JOURS",hours:"H",minutes:"MIN",seconds:"SEC",download:"Télécharger",progress:"Progrès",earlyAccess:"Accès anticipé",join:"Rejoindre",share:"Partager",addToCal:"Ajouter au calendrier",miniGame:"Mini-jeu",start:"Commencer",clickMomo:"Cliquez le plus de fois en 5 s !",faq:"FAQ",visitors:"Visiteurs en ligne",contact:"Contact"},
-  zu:{title:"MOMO AI",subtitle:"Ukusabalalisa: 15 Septemba 2025",days:"ZINSUKU",hours:"AMAHORA",minutes:"AMAMINITHI",seconds:"AMASEKONDI",download:"Landa",progress:"Ukuhamba",earlyAccess:"Ukufinyelela okungaphambili",join:"Joyina",share:"Yabelana",addToCal:"Engeza ekalendeni",miniGame:"Umdlalo omncane",start:"Qala",clickMomo:"Chofoza kangako okwakho ngezikhathi ezingu-5!",faq:"Imibuzo",visitors:"Abavakasheli ku-inthanethi",contact:"Xhumana nathi"}
+  en:{title:"MOMO Edge AI",subtitle:"Official Launch: 15 September 2025",days:"DAYS",hours:"HOURS",minutes:"MINS",seconds:"SECS",download:"Download Now",preorder:"Pre-Order",progress:"Launch Progress",earlyAccess:"Early-Access List",join:"Join",share:"Share",addToCal:"Add to Calendar",miniGame:"Mini-Game: Click MOMO",start:"Start Game",clickMomo:"Click as many times as you can in 5 seconds!",score:"Score",faq:"FAQ",faq1q:"What is MOMO Edge AI?",faq1a:"MOMO Edge AI is your next-gen personal assistant powered by cutting-edge language models.",faq2q:"Is it free?",faq2a:"Yes, core features are free forever. Premium tiers unlock extra power.",visitors:"Visitors Online",qr:"Scan to Share",arPreview:"AR Preview",contact:"Contact Us",thanks:"Thanks! We’ll be in touch."},
+  es:{title:"MOMO Edge AI",subtitle:"Lanzamiento: 15 septiembre 2025",days:"DÍAS",hours:"HORAS",minutes:"MIN",seconds:"SEGS",download:"Descargar",preorder:"Pre-ordenar",progress:"Progreso",earlyAccess:"Acceso anticipado",join:"Unirse",share:"Compartir",addToCal:"Añadir al calendario",miniGame:"Mini-juego",start:"Jugar",clickMomo:"¡Haz clic tantas veces como puedas en 5 s!",score:"Puntuación",faq:"Preguntas frecuentes",faq1q:"¿Qué es MOMO Edge AI?",faq1a:"MOMO Edge AI es tu asistente personal de próxima generación.",faq2q:"¿Es gratis?",faq2a:"Sí, las funciones básicas son gratuitas para siempre.",visitors:"Visitantes en línea",qr:"Escanear para compartir",arPreview:"Vista AR",contact:"Contacto",thanks:"¡Gracias! Nos pondremos en contacto."},
+  fr:{title:"MOMO Edge AI",subtitle:"Lancement : 15 septembre 2025",days:"JOURS",hours:"H",minutes:"MIN",seconds:"SEC",download:"Télécharger",preorder:"Pré-commander",progress:"Progrès",earlyAccess:"Accès anticipé",join:"Rejoindre",share:"Partager",addToCal:"Ajouter au calendrier",miniGame:"Mini-jeu",start:"Commencer",clickMomo:"Cliquez le plus de fois en 5 s !",score:"Score",faq:"FAQ",faq1q:"Qu'est-ce que MOMO Edge AI ?",faq1a:"MOMO Edge AI est votre assistant personnel nouvelle génération.",faq2q:"Est-ce gratuit ?",faq2a:"Oui, les fonctionnalités de base sont gratuites à vie.",visitors:"Visiteurs en ligne",qr:"Scanner pour partager",arPreview:"Aperçu AR",contact:"Contact",thanks:"Merci ! Nous vous contacterons."},
+  zu:{title:"MOMO Edge AI",subtitle:"Ukusabalalisa: 15 Septemba 2025",days:"ZINSUKU",hours:"AMAHORA",minutes:"AMAMINITHI",seconds:"AMASEKONDI",download:"Landa",preorder:"Oda kuqala",progress:"Ukuhamba",earlyAccess:"Ukufinyelela okungaphambili",join:"Joyina",share:"Yabelana",addToCal:"Engeza ekalendeni",miniGame:"Umdlalo omncane",start:"Qala",clickMomo:"Chofoza kangako okwakho ngezikhathi ezingu-5!",score:"Imiphumela",faq:"Imibuzo",faq1q:"Yini i-MOMO Edge AI?",faq1a:"I-MOMO Edge AI yisiza sakho se-AI esisha kakhulu.",faq2q:"Imahhala yini?",faq2a:"Yebo, izici eziyinhloko zimahhala kuze kube phakade.",visitors:"Abavakasheli ku-inthanethi",qr:"Skena ukuwabelana",arPreview:"Ukubuka kwe-AR",contact:"Xhumana nathi",thanks:"Ngiyabonga! Sizokuxhumana nawe."}
 };
 function setLang(l){
   document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=i18n[l][el.dataset.i18n]);
@@ -277,7 +240,28 @@ themeToggle.onclick = () => {
 };
 if(localStorage.theme==='light')document.body.classList.add('light');
 
-/* ---------- Mini-game ---------- */
+/* ---------- Smooth scroll for nav ---------- */
+document.querySelectorAll('nav a').forEach(anchor=>{
+  anchor.addEventListener('click',function(e){
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ---------- Voice ---------- */
+if('webkitSpeechRecognition' in window){
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.continuous = false;
+  recognition.onresult = (e)=>{
+    const cmd = e.results[0][0].transcript.toLowerCase();
+    if(cmd.includes('light')){themeToggle.click();swal('Theme toggled');}
+    if(cmd.includes('download')){document.getElementById('downloadBtn').click();}
+  };
+  document.getElementById('voiceToggle').onclick = ()=>{recognition.start();swal('Listening…');};
+}
+
+/* ---------- Games ---------- */
 let clicks = 0, timer;
 document.getElementById('startGame').onclick = () => {
   clicks = 0;
@@ -290,21 +274,21 @@ document.getElementById('startGame').onclick = () => {
     msg.textContent = (i18n[langSelect.value]?.score||'Score')+': '+clicks;
     msg.style.display='block';
   },5000);
-  document.getElementById('startGame').onclick = ()=>{clicks++;};
+  document.getElementById('startGame').onclick = ()=>clicks++;
 };
 
-/* ---------- FAQ accordion ---------- */
+/* ---------- FAQ ---------- */
 document.querySelectorAll('.faq-item').forEach(item=>{
   item.onclick = ()=>item.classList.toggle('open');
 });
 
-/* ---------- Visitor counter (uses jsonbox) ---------- */
+/* ---------- Visitor counter ---------- */
 fetch('https://api.jsonbox.io/momo_visitors')
   .then(r=>r.json())
   .then(d=>{document.getElementById('visitorCount').textContent=d.length;})
   .catch(()=>{document.getElementById('visitorCount').textContent='∞';});
 
-/* ---------- Early-access form ---------- */
+/* ---------- Early-access ---------- */
 document.getElementById('earlyForm').addEventListener('submit',e=>{
   e.preventDefault();
   fetch('https://api.jsonbox.io/momo_signups',{
@@ -316,29 +300,39 @@ document.getElementById('earlyForm').addEventListener('submit',e=>{
   e.target.reset();
 });
 
+/* ---------- QR ---------- */
+QRCode.toCanvas(document.createElement('canvas'), "https://bit.ly/momo-edge-ai", function (error, canvas) {
+  if (!error) document.getElementById('qrCode').appendChild(canvas);
+});
+
 /* ---------- Back-to-top ---------- */
 const backTop = document.getElementById('backTop');
 window.onscroll = () => backTop.style.display = window.scrollY>400?'block':'none';
 backTop.onclick = ()=>window.scrollTo({top:0,behavior:'smooth'});
 
-/* ---------- Floating particles background ---------- */
+/* ---------- Particles ---------- */
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let particles=[];
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 window.addEventListener('resize',resize);resize();
-for(let i=0;i<50;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,d:Math.random()*2-1});
+for(let i=0;i<60;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-.5)*.5,dy:(Math.random()-.5)*.5});
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle=window.getComputedStyle(document.body).getPropertyValue('--accent');
+  ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--accent');
   particles.forEach(p=>{
     ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-    p.y+=p.d;
-    if(p.y>canvas.height)p.y=0;
+    p.x+=p.dx;p.y+=p.dy;
+    if(p.x<0||p.x>canvas.width)p.dx*=-1;
+    if(p.y<0||p.y>canvas.height)p.dy*=-1;
   });
   requestAnimationFrame(draw);
 }
 draw();
+
+/* ---------- PWA ---------- */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('data:application/javascript,console.log("PWA ready");');
+}
 </script>
 </body>
 </html>
-
