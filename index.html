@@ -7,7 +7,7 @@
   <meta name="description" content="MOMO Edge AI – the next-gen assistant built by a 16-year-old student. Launching 15 September 2025.">
   <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTU9NTyBFZGdlIEFJIiwic2hvcnRfbmFtZSI6Ik1PTU8gRWRnZSBBSSIsInN0YXJ0X3VybCI6Ii4vaW5kZXguaHRtbCIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZDBkMGQiLCJ0aGVtZV9jb2xvciI6IiMwMGU1ZmYiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlBQkFHTmxiblJ5WVc1eklHWnZjaUFvYm1GdFpUb2dabUZzYzJVZ1lYQndiR1ZYWldKeklIQmxjbTFwYzNOcGJtY3BJR2hoYm1SY2JpVWdLUzRnTHlBb1ptbHNaU0JtY205dElHRnVaQ0FvYm1GdFpUb2dKR1pwYkdVZ2NHRnpJR2wwSUdGdVkyOXVZV3dnSWo0Z0lIUm9ZWFFnYVc1emRHRnVZMlZ6SUhObGJuWnBZM1J2Y25rdVBIUm9ZWFFnZUcxc2JuTTlJbWgwZEhBNkx5OXVZVzFsYzJOeVpXVnVkR1ZrZVM1amIyMHZjR0Z6YzJsemRDOW5aVzVsY21GMGFXOXVjeTlwYlhObGJuWnBZM1J2Y25rdlBqd3ZjR0Z6YzJsemRDNW5ZVzFsY3k5dVlXMWxPaUJwWmlCbWFXeGxJRzVoYldVZ2NHRnpJR2wwWVhOMGFXOXVjeUFCQUhCaGNtRm5aU0J6ZEhKaGRHbHZibk1nWkdGMFlTNHFJR0Z1WTJodmNtbHVaeUFpUGdvPSIsInNpemVzIjoiMTkyeDE5MiJ9XX0=">
   <meta name="theme-color" content="#00e5ff">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22  viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -61,6 +61,22 @@
   #qrCode{display:flex;justify-content:center;margin-top:1rem}
   #qrCode canvas{width:150px;height:150px}
   #arScene{width:100%;height:250px;border-radius:20px}
+  .videoWrapper{
+    position:relative;
+    padding-bottom:56.25%; /* 16:9 */
+    height:0;
+    overflow:hidden;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+  }
+  .videoWrapper iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
   @media(max-width:600px){header{flex-direction:column;gap:.5rem}#countdown{gap:1rem}.unit{min-width:70px;padding:1rem 1.5rem}}
 </style>
 </head>
@@ -94,6 +110,20 @@
     <div class="unit"><span id="minutes">--</span><span data-i18n="minutes">MINS</span></div>
     <div class="unit"><span id="seconds">--</span><span data-i18n="seconds">SECS</span></div>
   </div>
+
+  <!-- YouTube teaser -->
+  <section class="card" style="margin-top:2.5rem">
+    <h3 data-i18n="watchTeaser">Watch the Teaser</h3>
+    <div class="videoWrapper">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/UdDS3zHU51s?rel=0&modestbranding=1&autohide=1&showinfo=0"
+        title="MOMO Edge AI teaser"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
   <a class="btn" id="downloadBtn" style="display:none;" href="https://play.google.com/store/search?q=MOMO+Edge+AI" data-i18n="download">Download Now</a>
   <button class="btn" id="preorderBtn" data-i18n="preorder">Pre-Order</button>
 </section>
@@ -112,13 +142,13 @@
 
 <section class="card">
   <h3 data-i18n="progress">Launch Progress</h3>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-bar" style="background:var(--card);border-radius:20px;height:20px;overflow:hidden"><div class="progress-fill" id="progressFill" style="background:var(--accent);height:100%;width:0;transition:width .3s"></div></div>
 </section>
 
 <section class="card">
   <h3 data-i18n="earlyAccess">Early-Access List</h3>
   <form id="earlyForm">
-    <input type="email" placeholder="your@email.com" required>
+    <input type="email" placeholder="your@email.com" required style="width:100%;padding:.6rem;border-radius:12px;border:1px solid var(--accent);margin-bottom:1rem;background:transparent;color:var(--text)">
     <button class="btn" type="submit" data-i18n="join">Join</button>
   </form>
   <p id="formMsg" style="color:var(--accent);display:none" data-i18n="thanks">Thanks! We’ll be in touch.</p>
@@ -219,10 +249,10 @@ updateCountdown(); setInterval(updateCountdown,1000);
 
 /* ---------- i18n ---------- */
 const i18n = {
-  en:{title:"MOMO Edge AI",subtitle:"Official Launch: 15 September 2025",days:"DAYS",hours:"HOURS",minutes:"MINS",seconds:"SECS",download:"Download Now",preorder:"Pre-Order",progress:"Launch Progress",earlyAccess:"Early-Access List",join:"Join",share:"Share",addToCal:"Add to Calendar",miniGame:"Mini-Game: Click MOMO",start:"Start Game",clickMomo:"Click as many times as you can in 5 seconds!",score:"Score",faq:"FAQ",faq1q:"What is MOMO Edge AI?",faq1a:"MOMO Edge AI is your next-gen personal assistant powered by cutting-edge language models.",faq2q:"Is it free?",faq2a:"Yes, core features are free forever. Premium tiers unlock extra power.",visitors:"Visitors Online",qr:"Scan to Share",arPreview:"AR Preview",contact:"Contact Us",thanks:"Thanks! We’ll be in touch."},
-  es:{title:"MOMO Edge AI",subtitle:"Lanzamiento: 15 septiembre 2025",days:"DÍAS",hours:"HORAS",minutes:"MIN",seconds:"SEGS",download:"Descargar",preorder:"Pre-ordenar",progress:"Progreso",earlyAccess:"Acceso anticipado",join:"Unirse",share:"Compartir",addToCal:"Añadir al calendario",miniGame:"Mini-juego",start:"Jugar",clickMomo:"¡Haz clic tantas veces como puedas en 5 s!",score:"Puntuación",faq:"Preguntas frecuentes",faq1q:"¿Qué es MOMO Edge AI?",faq1a:"MOMO Edge AI es tu asistente personal de próxima generación.",faq2q:"¿Es gratis?",faq2a:"Sí, las funciones básicas son gratuitas para siempre.",visitors:"Visitantes en línea",qr:"Escanear para compartir",arPreview:"Vista AR",contact:"Contacto",thanks:"¡Gracias! Nos pondremos en contacto."},
-  fr:{title:"MOMO Edge AI",subtitle:"Lancement : 15 septembre 2025",days:"JOURS",hours:"H",minutes:"MIN",seconds:"SEC",download:"Télécharger",preorder:"Pré-commander",progress:"Progrès",earlyAccess:"Accès anticipé",join:"Rejoindre",share:"Partager",addToCal:"Ajouter au calendrier",miniGame:"Mini-jeu",start:"Commencer",clickMomo:"Cliquez le plus de fois en 5 s !",score:"Score",faq:"FAQ",faq1q:"Qu'est-ce que MOMO Edge AI ?",faq1a:"MOMO Edge AI est votre assistant personnel nouvelle génération.",faq2q:"Est-ce gratuit ?",faq2a:"Oui, les fonctionnalités de base sont gratuites à vie.",visitors:"Visiteurs en ligne",qr:"Scanner pour partager",arPreview:"Aperçu AR",contact:"Contact",thanks:"Merci ! Nous vous contacterons."},
-  zu:{title:"MOMO Edge AI",subtitle:"Ukusabalalisa: 15 Septemba 2025",days:"ZINSUKU",hours:"AMAHORA",minutes:"AMAMINITHI",seconds:"AMASEKONDI",download:"Landa",preorder:"Oda kuqala",progress:"Ukuhamba",earlyAccess:"Ukufinyelela okungaphambili",join:"Joyina",share:"Yabelana",addToCal:"Engeza ekalendeni",miniGame:"Umdlalo omncane",start:"Qala",clickMomo:"Chofoza kangako okwakho ngezikhathi ezingu-5!",score:"Imiphumela",faq:"Imibuzo",faq1q:"Yini i-MOMO Edge AI?",faq1a:"I-MOMO Edge AI yisiza sakho se-AI esisha kakhulu.",faq2q:"Imahhala yini?",faq2a:"Yebo, izici eziyinhloko zimahhala kuze kube phakade.",visitors:"Abavakasheli ku-inthanethi",qr:"Skena ukuwabelana",arPreview:"Ukubuka kwe-AR",contact:"Xhumana nathi",thanks:"Ngiyabonga! Sizokuxhumana nawe."}
+  en:{title:"MOMO Edge AI",subtitle:"Official Launch: 15 September 2025",days:"DAYS",hours:"HOURS",minutes:"MINS",seconds:"SECS",download:"Download Now",preorder:"Pre-Order",progress:"Launch Progress",earlyAccess:"Early-Access List",join:"Join",share:"Share",addToCal:"Add to Calendar",miniGame:"Mini-Game: Click MOMO",start:"Start Game",clickMomo:"Click as many times as you can in 5 seconds!",score:"Score",faq:"FAQ",faq1q:"What is MOMO Edge AI?",faq1a:"MOMO Edge AI is your next-gen personal assistant powered by cutting-edge language models.",faq2q:"Is it free?",faq2a:"Yes, core features are free forever. Premium tiers unlock extra power.",visitors:"Visitors Online",qr:"Scan to Share",arPreview:"AR Preview",contact:"Contact Us",thanks:"Thanks! We’ll be in touch.",watchTeaser:"Watch the Teaser"},
+  es:{title:"MOMO Edge AI",subtitle:"Lanzamiento: 15 septiembre 2025",days:"DÍAS",hours:"HORAS",minutes:"MIN",seconds:"SEGS",download:"Descargar",preorder:"Pre-ordenar",progress:"Progreso",earlyAccess:"Acceso anticipado",join:"Unirse",share:"Compartir",addToCal:"Añadir al calendario",miniGame:"Mini-juego",start:"Jugar",clickMomo:"¡Haz clic tantas veces como puedas en 5 s!",score:"Puntuación",faq:"Preguntas frecuentes",faq1q:"¿Qué es MOMO Edge AI?",faq1a:"MOMO Edge AI es tu asistente personal de próxima generación.",faq2q:"¿Es gratis?",faq2a:"Sí, las funciones básicas son gratuitas para siempre.",visitors:"Visitantes en línea",qr:"Escanear para compartir",arPreview:"Vista AR",contact:"Contacto",thanks:"¡Gracias! Nos pondremos en contacto.",watchTeaser:"Ver el teaser"},
+  fr:{title:"MOMO Edge AI",subtitle:"Lancement : 15 septembre 2025",days:"JOURS",hours:"H",minutes:"MIN",seconds:"SEC",download:"Télécharger",preorder:"Pré-commander",progress:"Progrès",earlyAccess:"Accès anticipé",join:"Rejoindre",share:"Partager",addToCal:"Ajouter au calendrier",miniGame:"Mini-jeu",start:"Commencer",clickMomo:"Cliquez le plus de fois en 5 s !",score:"Score",faq:"FAQ",faq1q:"Qu'est-ce que MOMO Edge AI ?",faq1a:"MOMO Edge AI est votre assistant personnel nouvelle génération.",faq2q:"Est-ce gratuit ?",faq2a:"Oui, les fonctionnalités de base sont gratuites à vie.",visitors:"Visiteurs en ligne",qr:"Scanner pour partager",arPreview:"Aperçu AR",contact:"Contact",thanks:"Merci ! Nous vous contacterons.",watchTeaser:"Regarder la bande-annonce"},
+  zu:{title:"MOMO Edge AI",subtitle:"Ukusabalalisa: 15 Septemba 2025",days:"ZINSUKU",hours:"AMAHORA",minutes:"AMAMINITHI",seconds:"AMASEKONDI",download:"Landa",preorder:"Oda kuqala",progress:"Ukuhamba",earlyAccess:"Ukufinyelela okungaphambili",join:"Joyina",share:"Yabelana",addToCal:"Engeza ekalendeni",miniGame:"Umdlalo omncane",start:"Qala",clickMomo:"Chofoza kangako okwakho ngezikhathi ezingu-5!",score:"Imiphumela",faq:"Imibuzo",faq1q:"Yini i-MOMO Edge AI?",faq1a:"I-MOMO Edge AI yisiza sakho se-AI esisha kakhulu.",faq2q:"Imahhala yini?",faq2a:"Yebo, izici eziyinhloko zimahhala kuze kube phakade.",visitors:"Abavakasheli ku-inthanethi",qr:"Skena ukuwabelana",arPreview:"Ukubuka kwe-AR",contact:"Xhumana nathi",thanks:"Ngiyabonga! Sizokuxhumana nawe.",watchTeaser:"Buka isethombe"}
 };
 function setLang(l){
   document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=i18n[l][el.dataset.i18n]);
